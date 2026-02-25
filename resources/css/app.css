@@ -183,7 +183,6 @@
 @keyframes example {
     0% {
         transform: translateX(400px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
         opacity: 0%;
     }
 
@@ -193,6 +192,18 @@
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+.scroll-in.animate {
+    animation: example 0.8s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-in.animate {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
 

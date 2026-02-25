@@ -9,33 +9,36 @@ import meImage from '../../../images/cv/me.png'; //Problem matic, @/ leads to re
 
 onMounted(() => {
     const observer = new IntersectionObserver(
-        (intersections) => {
-            intersections.forEach(({ target, isIntersecting }) => {
-                target.classList.toggle('animate', isIntersecting);
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    obs.unobserve(entry.target); // stop observing after first trigger
+                }
             });
         },
         {
-            threshold: 0,
-        },
+            threshold: 0.2, // require 20% visibility to trigger
+        }
     );
 
-    document.querySelectorAll('.scroll-in').forEach((div) => {
-        observer.observe(div);
+    document.querySelectorAll('.scroll-in').forEach((el) => {
+        observer.observe(el);
     });
 });
 </script>
 
 <template>
-    <Head title="Hobbies" />
+    <Head title="Mijn Hobbies" />
 
     <AppLayout>
         <div class="relative min-h-screen">
             <div
-                class="absolute top-0 bottom-0 left-60 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)]"
+                class="absolute top-0 bottom-0 left-0 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)] sm:left-60"
             ></div>
 
             <div class="relative z-10 mx-auto max-w-6xl space-y-1 py-1">
-                <h1 class="text-9xl">Hobbies</h1>
+                <h1 class="text-5xl sm:text-7xl lg:text-9xl">Hobbies</h1>
 
                 <h2 class="text-4xl">Geert Houtepen</h2>
                 <div class="flex gap-4">
@@ -70,8 +73,8 @@ onMounted(() => {
                         <Linkedin class="h-5 w-5" />
                     </a>
                 </div>
-                <div class="flex">
-                    <div class="w-50 flex-none p-2">
+                <div class="flex flex-col md:flex-row">
+                    <div class="p-2 md:w-1/3">
                         <img
                             :src="meImage"
                             alt="Photo of me"
@@ -80,8 +83,8 @@ onMounted(() => {
                             class="max-w-full rounded-lg shadow-md"
                         />
                     </div>
-                    <div class="w-50 flex-auto p-2">
-                        <h3 class="text-2xl">Over mij zelf</h3>
+                    <div class="p-2 md:w-2/3">
+                        <h3 class="text-2xl">Over mij</h3>
                         Naast mijn werk als webdeveloper investeer ik
                         structureel tijd in eigen projecten. Ik gebruik
                         hobbyprojecten om nieuwe technologieën te verkennen,
@@ -94,7 +97,7 @@ onMounted(() => {
             </div>
 
             <div class="relative z-10 mx-auto max-w-4xl space-y-1 py-1">
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2024</h2>
 
                     <h3 class="text-2xl">VueFlow</h3>
@@ -141,7 +144,7 @@ onMounted(() => {
                         >
                     </p>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2022-2024</h2>
 
                     <h3 class="text-2xl">Gameontwikkeling met Godot Engine</h3>
@@ -195,7 +198,7 @@ onMounted(() => {
                         Your browser does not support this video format.
                     </video>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2021</h2>
 
                     <h3 class="text-2xl">Binding of Isaac Modificatie</h3>
@@ -203,8 +206,9 @@ onMounted(() => {
                     <p>
                         Geschreven in LUA, met samenwerking met twee anderen
                         developers. Hierin was de documentatie doornemen, zelf
-                        de assets pixel voor pixel bij elkaar zetten.
-                        En natuurlijk het testen en balanceren van gameplay rondom deze karakter.
+                        de assets pixel voor pixel bij elkaar zetten. En
+                        natuurlijk het testen en balanceren van gameplay rondom
+                        deze karakter.
                         <a
                             class="underline"
                             href="https://steamcommunity.com/sharedfiles/filedetails/?id=2629654093"

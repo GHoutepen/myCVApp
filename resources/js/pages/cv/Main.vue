@@ -8,33 +8,38 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
 onMounted(() => {
     const observer = new IntersectionObserver(
-        (intersections) => {
-            intersections.forEach(({ target, isIntersecting }) => {
-                target.classList.toggle('animate', isIntersecting);
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    obs.unobserve(entry.target); // stop observing after first trigger
+                }
             });
         },
         {
-            threshold: 0,
-        },
+            threshold: 0.2, // require 20% visibility to trigger
+        }
     );
 
-    document.querySelectorAll('.scroll-in').forEach((div) => {
-        observer.observe(div);
+    document.querySelectorAll('.scroll-in').forEach((el) => {
+        observer.observe(el);
     });
 });
 </script>
 
 <template>
-    <Head title="CV" />
+    <Head title="Mijn CV" />
 
     <AppLayout>
         <div class="relative min-h-screen">
             <div
-                class="absolute top-0 bottom-0 left-60 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)]"
+                class="absolute top-0 bottom-0 left-0 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)] sm:left-60"
             ></div>
 
             <div class="relative z-10 mx-auto max-w-6xl space-y-1 py-1">
-                <h1 class="text-9xl">Curriculum vitae</h1>
+                <h1 class="text-5xl sm:text-7xl lg:text-9xl">
+                    Curriculum vitae
+                </h1>
 
                 <h2 class="text-4xl">Geert Houtepen</h2>
                 <div class="flex gap-4">
@@ -69,8 +74,8 @@ onMounted(() => {
                         <Linkedin class="h-5 w-5" />
                     </a>
                 </div>
-                <div class="flex">
-                    <div class="w-50 flex-none p-2">
+                <div class="flex flex-col md:flex-row">
+                    <div class="p-2 md:w-1/3">
                         <img
                             :src="meImage"
                             alt="Photo of me"
@@ -79,7 +84,7 @@ onMounted(() => {
                             class="max-w-full rounded-lg shadow-md"
                         />
                     </div>
-                    <div class="w-50 flex-auto p-2">
+                    <div class="p-2 md:w-2/3">
                         <h3 class="text-2xl">Over mij</h3>
                         <p class="mb-5">
                             Mijn naam is Geert Houtepen, ik ben een ervaren
@@ -111,22 +116,22 @@ onMounted(() => {
                             zelf maak.
                         </p>
 
-                        <div class="w-50 flex-auto p-2 pt-5">
+                        <div class="flex-auto p-2 pt-5">
                             <h3 class="text-2xl">Code skills</h3>
-                            <div class="flex gap-15">
-                                <ul>
+                            <div class="flex gap-10">
+                                <ul class="md:w-1/3">
                                     <li>HTML(5)</li>
                                     <li>CSS(3)</li>
                                     <li>Laravel</li>
                                     <li>VueJS</li>
                                 </ul>
-                                <ul>
+                                <ul class="md:w-1/3">
                                     <li>PHP</li>
                                     <li>MySQL</li>
                                     <li>JSON</li>
                                     <li>Git</li>
                                 </ul>
-                                <ul>
+                                <ul class="md:w-1/3">
                                     <li>AJAX</li>
                                     <li>Bootstrap</li>
                                     <li>Javascript</li>
@@ -192,7 +197,7 @@ onMounted(() => {
             </div>
 
             <div class="relative z-10 mx-auto max-w-4xl space-y-1 py-1">
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2025</h2>
 
                     <h3 class="text-2xl">MaxServ - PHP Developer</h3>
@@ -234,7 +239,7 @@ onMounted(() => {
                         </li>
                     </ul>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2023</h2>
 
                     <h3 class="text-2xl">ITEC BV - PHP Developer</h3>
@@ -275,7 +280,7 @@ onMounted(() => {
                         </li>
                     </ul>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2020</h2>
 
                     <h3 class="text-2xl">
@@ -348,7 +353,7 @@ onMounted(() => {
                         </li>
                     </ul>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">2020</h2>
 
                     <h3 class="text-2xl">
@@ -397,7 +402,7 @@ onMounted(() => {
                         </li>
                     </ul>
                 </div>
-                <div class="scroll-hidden scroll-in p-12">
+                <div class="scroll-hidden scroll-in p-4 sm:p-12">
                     <h2 class="text-4xl">Opleidingen</h2>
 
                     <div class="mb-8">
