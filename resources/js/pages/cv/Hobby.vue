@@ -34,8 +34,7 @@ onMounted(() => {
     <AppLayout>
         <div class="relative min-h-screen">
             <div
-                class="absolute top-0 bottom-0 left-0 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)] sm:left-60"
-            ></div>
+                class="absolute top-0 bottom-0 left-0 z-0 w-1 bg-[linear-gradient(to_bottom,transparent,red_15%,red_85%,transparent)] sm:left-0 lg:left-60"            ></div>
 
             <div class="relative z-10 mx-auto max-w-6xl space-y-1 py-1">
                 <h1 class="text-5xl sm:text-7xl lg:text-9xl">Hobbies</h1>
@@ -73,7 +72,7 @@ onMounted(() => {
                         <Linkedin class="h-5 w-5" />
                     </a>
                 </div>
-                <div class="flex flex-col md:flex-row">
+                <div class="flex flex-col lg:md:flex-row">
                     <div class="p-2 md:w-1/3">
                         <img
                             :src="meImage"
